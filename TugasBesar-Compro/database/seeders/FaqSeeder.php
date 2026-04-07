@@ -93,7 +93,7 @@ class FaqSeeder extends Seeder
             ],
             [
                 'question' => 'cara booking selfphoto',
-                'answer'   => '📝 Reservasi bisa melalui website ini (menu Reservasi) atau langsung hubungi WhatsApp: 0812-3456-7890',
+                'answer'   => '📝 Reservasi bisa melalui website ini (menu Reservasi) atau langsung hubungi WhatsApp: 0858-7805-9861',
             ],
 
             // === HASIL FOTO ===
@@ -109,11 +109,11 @@ class FaqSeeder extends Seeder
             // === KONTAK ===
             [
                 'question' => 'kontak sejenak studio',
-                'answer'   => "📞 Hubungi kami:\n• WhatsApp: 0812-3456-7890\n• Instagram: @sejenakselfphoto\n• Jam operasional: 10:00 – 21:00 WIB",
+                'answer'   => "📞 Hubungi kami:\n• WhatsApp: 0858-7805-9861\n• Instagram: @sejenakselfphoto\n• Jam operasional: 10:00 – 21:00 WIB",
             ],
             [
                 'question' => 'nomor whatsapp sejenak studio',
-                'answer'   => '📱 WhatsApp Sejenak Studio: 0812-3456-7890 (Jam 10:00 – 21:00 WIB)',
+                'answer'   => '📱 WhatsApp Sejenak Studio: 0858-7805-9861 (Jam 10:00 – 21:00 WIB)',
             ],
 
             // === UMUM ===

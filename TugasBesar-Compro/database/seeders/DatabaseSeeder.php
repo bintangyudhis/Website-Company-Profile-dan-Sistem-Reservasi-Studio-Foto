@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ServicePackageSeeder::class,
             FaqSeeder::class,
+            GallerySeeder::class,
         ]);
     }
 }

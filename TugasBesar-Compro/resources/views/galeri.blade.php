@@ -10,11 +10,12 @@
 
 <div class="container py-5">
     <!-- Filter (Opsional) -->
-    <div class="d-flex justify-content-center gap-2 mb-5">
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
         <button class="btn btn-primary rounded-pill px-4">Semua</button>
-        <button class="btn btn-outline-primary rounded-pill px-4">Graduation</button>
-        <button class="btn btn-outline-primary rounded-pill px-4">Wedding</button>
-        <button class="btn btn-outline-primary rounded-pill px-4">Portrait</button>
+        <button class="btn btn-outline-primary rounded-pill px-4">Berdua</button>
+        <button class="btn btn-outline-primary rounded-pill px-4">Senandung</button>
+        <button class="btn btn-outline-primary rounded-pill px-4">Memori</button>
+        <button class="btn btn-outline-primary rounded-pill px-4">Lembayung</button>
     </div>
 
     <div class="row g-4">

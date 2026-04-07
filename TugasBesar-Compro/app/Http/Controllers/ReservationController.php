@@ -27,6 +27,7 @@ class ReservationController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'service_package_id' => 'required|exists:service_packages,id',
+            'background' => 'required|string',
             'reservation_date' => 'required|date|after_or_equal:today',
             'reservation_time' => 'required',
             'head_count' => 'required|integer|min:1',
@@ -54,6 +55,7 @@ class ReservationController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'service_package_id' => $request->service_package_id,
+            'background' => $request->background,
             'reservation_date' => $request->reservation_date,
             'reservation_time' => $request->reservation_time,
             'head_count' => $request->head_count,
@@ -61,11 +63,26 @@ class ReservationController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('reservasi.success')->with('success', 'Reservasi berhasil dikirim! Silakan tunggu konfirmasi dari admin melalui WhatsApp.');
+        $waMessage = "Halo admin Sejenak Studio! Saya ingin mengonfirmasi reservasi saya:\n\n"
+                   . "Nama: {$request->name}\n"
+                   . "Paket: {$package->name}\n"
+                   . "Background: {$request->background}\n"
+                   . "Tanggal: " . \Carbon\Carbon::parse($request->reservation_date)->format('d F Y') . "\n"
+                   . "Jam: {$request->reservation_time} WIB\n"
+                   . "Jumlah Orang: {$request->head_count} Orang\n";
+
+        if ($request->notes) {
+            $waMessage .= "Catatan: {$request->notes}\n";
+        }
+
+        $waLink = "https://wa.me/6285878059861?text=" . urlencode($waMessage);
+
+        return redirect()->route('reservasi.success')->with('wa_link', $waLink);
     }
 
     public function success()
     {
-        return view('reservasi.success');
+        $waLink = session('wa_link', 'https://wa.me/6285878059861');
+        return view('reservasi.success', compact('waLink'));
     }
 }
