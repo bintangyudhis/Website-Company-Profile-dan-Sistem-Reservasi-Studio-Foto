@@ -63,15 +63,28 @@ Route::prefix('admin')->group(function () {
         
         // Reservasi
         Route::get('/reservasi', [AdminController::class, 'reservations'])->name('admin.reservations');
+        Route::get('/reservasi/{reservation}/edit', [AdminController::class, 'editReservation'])->name('admin.reservations.edit');
         Route::patch('/reservasi/{reservation}/status', [AdminController::class, 'updateReservationStatus'])->name('admin.reservations.status');
+        Route::delete('/reservasi/{reservation}', [AdminController::class, 'destroyReservation'])->name('admin.reservations.destroy');
 
         // Paket
         Route::get('/packages', [AdminController::class, 'packages'])->name('admin.packages');
         Route::get('/packages/create', [AdminController::class, 'createPackage'])->name('admin.packages.create');
         Route::post('/packages', [AdminController::class, 'storePackage'])->name('admin.packages.store');
+        Route::get('/packages/{package}/edit', [AdminController::class, 'editPackage'])->name('admin.packages.edit');
+        Route::put('/packages/{package}', [AdminController::class, 'updatePackage'])->name('admin.packages.update');
+        Route::delete('/packages/{package}', [AdminController::class, 'deletePackage'])->name('admin.packages.destroy');
         
-        // FAQ & Galeri
+        // FAQ
         Route::get('/faqs', [AdminController::class, 'faqs'])->name('admin.faqs');
+        Route::post('/faqs', [AdminController::class, 'storeFaq'])->name('admin.faqs.store');
+        Route::get('/faqs/{faq}/edit', [AdminController::class, 'editFaq'])->name('admin.faqs.edit');
+        Route::put('/faqs/{faq}', [AdminController::class, 'updateFaq'])->name('admin.faqs.update');
+        Route::delete('/faqs/{faq}', [AdminController::class, 'deleteFaq'])->name('admin.faqs.destroy');
+
+        // Galeri
         Route::get('/galleries', [AdminController::class, 'galleries'])->name('admin.galleries');
+        Route::post('/galleries', [AdminController::class, 'storeGallery'])->name('admin.galleries.store');
+        Route::delete('/galleries/{gallery}', [AdminController::class, 'deleteGallery'])->name('admin.galleries.destroy');
     });
 });
