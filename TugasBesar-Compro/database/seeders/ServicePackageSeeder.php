@@ -9,34 +9,39 @@ class ServicePackageSeeder extends Seeder
 {
     public function run(): void
     {
+        // Disable foreign key checks sementara agar bisa truncate
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        ServicePackage::truncate();
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         $packages = [
             [
-                'name' => 'Graduation Studio',
-                'description' => 'Paket foto wisuda indoor dengan 2 background dan 10 foto edit.',
-                'price' => 150000,
-                'max_people' => 5,
-                'image' => 'graduation.jpg',
+                'name'        => 'Paket Berdua',
+                'description' => "– Maks 2 orang\n– Choose 1 Background\n– 5 menit sesi foto\n– All soft file edit foto\n– Send via Google Drive",
+                'price'       => 35000,
+                'max_people'  => 2,
+                'image'       => null,
             ],
             [
-                'name' => 'Group Photo',
-                'description' => 'Foto grup bersama teman atau keluarga. Maksimal 10 orang.',
-                'price' => 200000,
-                'max_people' => 10,
-                'image' => 'group.jpg',
+                'name'        => 'Paket Senandung',
+                'description' => "– Maks 4 orang\n– Choose 1 Background\n– 10 menit sesi foto\n– All soft file edit foto\n– Send via Google Drive\n– 2 cetak foto polaroid",
+                'price'       => 50000,
+                'max_people'  => 4,
+                'image'       => null,
             ],
             [
-                'name' => 'Personal Portrait',
-                'description' => 'Foto profil profesional atau personal branding.',
-                'price' => 100000,
-                'max_people' => 1,
-                'image' => 'portrait.jpg',
+                'name'        => 'Paket Memori',
+                'description' => "– Maks 8 orang\n– Choose 1 Background\n– 10 menit sesi foto\n– All soft file edit foto\n– Send via Google Drive\n– 6 cetak foto polaroid",
+                'price'       => 80000,
+                'max_people'  => 8,
+                'image'       => null,
             ],
             [
-                'name' => 'Couple Session',
-                'description' => 'Momen romantis bersama pasangan. 1 jam sesi foto.',
-                'price' => 175000,
-                'max_people' => 2,
-                'image' => 'couple.jpg',
+                'name'        => 'Paket Lembayung',
+                'description' => "– Maks 8 orang\n– Choose 1 Background\n– 15 menit sesi foto\n– All soft file edit foto\n– Send via Google Drive\n– 8 cetak foto polaroid",
+                'price'       => 100000,
+                'max_people'  => 8,
+                'image'       => null,
             ],
         ];
 

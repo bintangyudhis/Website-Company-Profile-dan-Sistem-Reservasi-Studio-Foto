@@ -11,20 +11,72 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; }
-        .navbar { background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .btn-primary { background-color: #0d6efd; border: none; }
-        .hero-section { background: linear-gradient(RGBA(0,0,0,0.6), RGBA(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; color: white; padding: 100px 0; }
-        footer { background-color: #212529; color: white; padding: 40px 0; }
-        /* Chatbot Style */
-        #chatbot-bubble { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #0d6efd; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; }
-        #chatbot-window { position: fixed; bottom: 90px; right: 20px; width: 350px; height: 450px; background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 1000; overflow: hidden; }
-        .chat-header { background: #0d6efd; color: white; padding: 15px; font-weight: bold; }
-        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f0f2f5; }
-        .chat-footer { padding: 10px; border-top: 1px solid #eee; display: flex; }
-        .message { margin-bottom: 10px; padding: 8px 12px; border-radius: 15px; max-width: 80%; }
-        .bot { background: #e9ecef; align-self: flex-start; }
-        .user { background: #0d6efd; color: white; align-self: flex-end; margin-left: auto; }
+        /* ===== SEJENAK STUDIO - BRAND COLOR PALETTE ===== */
+        :root {
+            --teal:       #00A99D;
+            --teal-dark:  #007A75;
+            --teal-light: #E0F7F5;
+            --yellow:     #FFD000;
+            --yellow-dark:#E6B800;
+            --dark:       #1A1A2E;
+            --grey-soft:  #F5F7F8;
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: var(--grey-soft); color: #333; }
+
+        /* Navbar */
+        .navbar { background-color: #fff; box-shadow: 0 2px 8px rgba(0,169,157,0.15); }
+        .navbar-brand span { color: var(--teal); }
+        .nav-link:hover, .nav-link.active { color: var(--teal) !important; }
+
+        /* Bootstrap primary override */
+        .btn-primary  { background-color: var(--teal) !important; border-color: var(--teal) !important; color: #fff !important; }
+        .btn-primary:hover { background-color: var(--teal-dark) !important; border-color: var(--teal-dark) !important; }
+        .btn-outline-primary { border-color: var(--teal) !important; color: var(--teal) !important; }
+        .btn-outline-primary:hover { background-color: var(--teal) !important; color: white !important; }
+        .text-primary { color: var(--teal) !important; }
+        .bg-primary   { background-color: var(--teal) !important; }
+        .border-primary { border-color: var(--teal) !important; }
+
+        /* Yellow accent */
+        .btn-yellow { background-color: var(--yellow); border: none; color: #1A1A2E; font-weight: 600; }
+        .btn-yellow:hover { background-color: var(--yellow-dark); color: #1A1A2E; }
+        .text-yellow { color: var(--yellow) !important; }
+        .badge-teal   { background-color: var(--teal); color: white; }
+
+        /* Hero */
+        .hero-section {
+            background: linear-gradient(rgba(0,169,157,0.85), rgba(0,122,117,0.92)),
+                        url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center;
+            color: white; padding: 120px 0;
+        }
+
+        /* Footer */
+        footer { background-color: var(--teal-dark); color: white; padding: 50px 0; }
+        footer a { color: rgba(255,255,255,0.75) !important; }
+        footer a:hover { color: var(--yellow) !important; }
+
+        /* Chatbot Floating Button */
+        #chatbot-bubble {
+            position: fixed; bottom: 24px; right: 24px;
+            width: 60px; height: 60px;
+            background: var(--teal-dark);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0,169,157,0.4);
+            z-index: 1000;
+            transition: transform 0.2s, background 0.2s;
+        }
+        #chatbot-bubble:hover { background: var(--teal); transform: scale(1.08); color: white; }
+        #chatbot-bubble .chat-badge {
+            position: absolute; top: -2px; right: -2px;
+            background: var(--yellow); color: #1A1A2E;
+            border-radius: 50%; width: 18px; height: 18px;
+            font-size: 10px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -41,8 +93,9 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('profil') }}">Profil</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('paket') }}">Paket</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('galeri') }}">Galeri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('faq') }}">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('informasi') }}">Informasi</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('kontak') }}">Kontak</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('chatbot.index') }}"><i class="fas fa-robot me-1 text-success"></i>Chatbot</a></li>
                     <li class="nav-item ms-lg-3">
                         <a class="btn btn-primary rounded-pill px-4" href="{{ route('reservasi.index') }}">Reservasi Sekarang</a>
                     </li>
@@ -73,7 +126,7 @@
                 <div class="col-md-4 mb-4">
                     <h5 class="fw-bold mb-3">IKUTI KAMI</h5>
                     <div class="d-flex justify-content-center gap-3">
-                        <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="https://instagram.com/sejenakselfphoto" target="_blank" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
                         <a href="#" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
                         <a href="#" class="text-white"><i class="fab fa-whatsapp fa-lg"></i></a>
                     </div>
@@ -84,53 +137,13 @@
         </div>
     </footer>
 
-    <!-- Chatbot UI -->
-    <div id="chatbot-bubble">
-        <i class="fas fa-comment-dots"></i>
-    </div>
-    <div id="chatbot-window">
-        <div class="chat-header d-flex justify-content-between align-items-center">
-            <span>Tanya Sejenak Bot</span>
-            <button class="btn btn-sm text-white" onclick="toggleChat()"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chat-body d-flex flex-column" id="chat-messages">
-            <div class="message bot">Halo! Ada yang bisa saya bantu? Silakan tanya apa saja tentang Sejenak Studio.</div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="chat-input" class="form-control form-control-sm" placeholder="Ketik pertanyaan...">
-            <button class="btn btn-primary btn-sm ms-2" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
+    <!-- Chatbot Floating Button → arahkan ke halaman chat room -->
+    <a href="{{ route('chatbot.index') }}" id="chatbot-bubble" title="Tanya Sejenak Bot">
+        <i class="fas fa-comments"></i>
+        <span class="chat-badge">!</span>
+    </a>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function toggleChat() {
-            $('#chatbot-window').fadeToggle();
-        }
-        $('#chatbot-bubble').click(toggleChat);
-
-        function sendMessage() {
-            let msg = $('#chat-input').val();
-            if(!msg) return;
-
-            $('#chat-messages').append(`<div class="message user">${msg}</div>`);
-            $('#chat-input').val('');
-            $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
-
-            $.post("{{ route('chatbot.chat') }}", {
-                _token: "{{ csrf_token() }}",
-                message: msg
-            }, function(data) {
-                $('#chat-messages').append(`<div class="message bot">${data.reply}</div>`);
-                $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
-            });
-        }
-
-        $('#chat-input').keypress(function(e) {
-            if(e.which == 13) sendMessage();
-        });
-    </script>
 </body>
 </html>

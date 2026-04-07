@@ -11,6 +11,7 @@ class Reservation extends Model
         'name',
         'phone',
         'service_package_id',
+        'background',
         'reservation_date',
         'reservation_time',
         'head_count',

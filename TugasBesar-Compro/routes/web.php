@@ -31,10 +31,12 @@ Route::get('/galeri', function () {
     return view('galeri', compact('galleries'));
 })->name('galeri');
 
-Route::get('/faq', function () {
-    $faqs = Faq::all();
-    return view('faq', compact('faqs'));
-})->name('faq');
+Route::get('/informasi', function () {
+    return view('informasi');
+})->name('informasi');
+
+// Redirect lama /faq ke /informasi agar tidak 404
+Route::redirect('/faq', '/informasi');
 
 Route::get('/kontak', function () {
     return view('kontak');
@@ -46,6 +48,7 @@ Route::post('/reservasi', [ReservationController::class, 'store'])->name('reserv
 Route::get('/reservasi/sukses', [ReservationController::class, 'success'])->name('reservasi.success');
 
 // --- CHATBOT ---
+Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot.index');
 Route::post('/chatbot/chat', [ChatbotController::class, 'handle'])->name('chatbot.chat');
 
 // --- ADMIN SIDE (With Auth Middleware) ---
